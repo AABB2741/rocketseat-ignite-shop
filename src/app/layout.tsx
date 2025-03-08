@@ -1,5 +1,10 @@
+import "./globals.css";
+
 import type { Metadata } from "next";
 import { Roboto } from "next/font/google";
+import Image from "next/image";
+
+import logoSvg from "@/assets/logo.svg";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -9,6 +14,7 @@ export const metadata: Metadata = {
 const roboto = Roboto({
   subsets: ["latin"],
   display: "swap",
+  variable: "--font-roboto",
 });
 
 export default function RootLayout({
@@ -17,8 +23,16 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="pt" className={roboto.className}>
-      <body>{children}</body>
+    <html lang="pt" className={`${roboto.variable} antialiased`}>
+      <body className="bg-gray-900 text-gray-100">
+        <div className="flex flex-col items-start min-h-dvh justify-center">
+          <header className="py-8 w-full max-w-[1180px] mx-auto">
+            <Image src={logoSvg} alt="Ignite Shop" height={52} width={130} />
+          </header>
+
+          {children}
+        </div>
+      </body>
     </html>
   );
 }
